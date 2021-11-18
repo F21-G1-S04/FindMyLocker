@@ -1,0 +1,39 @@
+-<%- include('../components/header.ejs')  -%>
+<%- include('../components/main_nav.ejs')  -%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<main class="container">
+ 
+
+    <div class="row">
+        <div class="offset-md-4 col-md-4">
+            <h1>Search for Locker</h1>
+            <form method="POST" autocomplete="off">
+                <fieldset class= "form-group">
+                    <label for="Locker Location">Search</label>
+                    <input type="text" class="form-control"
+                    name="Locker Location" placeholder="Enter Locker Location"
+                    id="Locker Location" required autofocus>
+
+                    <a href="/advanceSearch">Advance Search</a>
+                </fieldset>
+
+                
+
+                <fieldset class= "form-group text-right">
+                    <input type="submit" class="btn btn-success" value="Search Locker">
+                    <a href="/">
+                        <input type="button" class="btn btn-warning" value="Cancel">
+                    </a>
+                </fieldset>
+
+            </form>
+        </div> 
+    </div>
+
+</main>
+
+
+
+
+<%- include('../components/bottom_nav.ejs')  -%>
+<%- include('../components/footer.ejs')  -%>
