@@ -1,9 +1,32 @@
 <div class="container center">
-    <form class="form" method="POST">
-        <p>Enter your location </p>
-    <input name="Text1" type="text" />&nbsp; Advanced Search<br />
-	<input name="search" type="submit" value="Search" />
-    </form>
+ 
+
+        <div class="row">
+            <div class="offset-md-4 col-md-4">
+                <h1>Search for Locker</h1>
+                <form method="POST" autocomplete="off">
+                    <fieldset class= "form-group">
+                        <label for="Locker Location">Search</label>
+                        <input type="text" class="form-control"
+                        name="Locker Location" placeholder="Enter Locker Location"
+                        id="Locker Location" required autofocus>
+    
+                        <a href="/advanceSearch">Advance Search</a>
+                    </fieldset>
+    
+                    
+    
+                    <fieldset class= "form-group text-right">
+                        <input type="submit" class="btn btn-success" value="Search Locker">
+                        <a href="/">
+                            <input type="button" class="btn btn-warning" value="Cancel">
+                        </a>
+                    </fieldset>
+    
+                </form>
+            </div> 
+        </div>
+    
 
     
 
