@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1><%= title %></h1>
+
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <label for="nameTextField">Name</label>
+                    <input type="text" class="form-control"
+                    id="nameTextField"
+                    placeholder="Enter the Name"
+                    name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="authorTextField">Location</label>
+                    <input type="text" class="form-control"
+                    id="authorTextField"
+                    placeholder="Enter the location"
+                    name="location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="publishedTextField">Price</label>
+                    <input type="text" class="form-control"
+                    id="publishedTextField"
+                    placeholder="Enter the price"
+                    name="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descriptionTextArea">Size</label>
+                    <input type="text" class="form-control"
+                    id="descriptionTextArea"
+                    placeholder="Enter the size"
+                    name="size" required></textarea>
+                </div>
+
+                
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-edit"></i> Submit</button>
+                
+                    <a href="/locker" class="btn btn-warning">
+                        <i class="fas fa-undo"></i> Cancel</a>
+
+            </form>
+        </div>
+
+    </div>
+</div>
