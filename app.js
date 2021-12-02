@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var lockerRouter = require('./routes/locker');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
+var resultScreenRouter = require('./routes/resultScreen.js');
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use('/', indexRouter);
 app.use('/locker', lockerRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/resultScreen', resultScreenRouter)
 app.use(express.json({ extended: false}));
 
 // catch 404 and forward to error handler
