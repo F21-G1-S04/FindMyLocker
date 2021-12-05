@@ -68,3 +68,55 @@ module.exports.processAddPage = (req, res, next) => {
     });
 
 }
+
+
+//Query for Edit
+module.exports.displayEditPage = (req, res, next) => {
+        let lockerId = req.params.id;
+
+        Locker.findById(lockerId, (err, lockerForUpdate) => {
+            if(err){
+                console.log(err);
+                res.end(err);
+            } else{
+                //show the view ///need to be fixed after view implemented
+                res.render('editLocker/edit', lockerForUpdate);
+            }
+        })
+}
+module.exports.processEditPage = (req, res, next) => {
+    let id = req.params.id;
+
+    let updatedLocker = Locker({
+        "_id": id,
+        "name": req.body.name,
+        "location": req.body.location,
+        "price": req.body.price,
+        "size": req.body.size
+    });
+
+    Locker.updateOne({_id: id}, updatedLocker, (err) => {
+        if(err){
+            console.log(err);
+            res.end(err);
+        }else{
+            res.redirect('/lockerlist');
+        }
+    })
+}
+
+//Query for Delete
+module.exports.processDelete = (req, res, next) =>{
+    let id = req.params.id;
+
+    Locker.remove({_id: id}, (err) =>{
+        if(err){
+            console.log(err);
+            res.end(err);
+        }else{
+            res.redirect('/lockerlist');
+        }
+    })
+}
+
+
