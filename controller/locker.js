@@ -168,7 +168,10 @@ module.exports.processUpdatePage = (req, res, next) => {
         "name": req.body.name,
         "location": req.body.location,
         "price": req.body.price,
-        "size": req.body.size
+        "size": req.body.size,
+        "description": req.body.description,
+        "address": req.body.address,
+        "image": req.body.image
     });
 
     Locker.updateOne({_id: id}, updatedLocker, (err) => {

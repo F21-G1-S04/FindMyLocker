@@ -30,6 +30,34 @@ module.exports.displaySearchPage = (req, res, next) => {
     });
 }
 
+//Advanced Search
+module.exports.displayAdvancedSearch = (req, res, next) => {
+
+    res.render('index', { title: 'Advanced Search',page: 'advancedSearch' });
+
+}
+
+module.exports.displayAdvancedSearchResult = (req, res, next) => {
+    let searchOption = {
+    "name":{ $regex : new RegExp(req.body.name, "i") },
+    "location": { $regex : new RegExp(req.body.location, "i") },
+    // "price" : { $regex : new RegExp(req.body.price) },
+    "size" : { $regex : new RegExp(req.body.size, "i") }
+    };
+    Locker.find(searchOption, (err, LockerList) => {
+        if(err){
+            console.log(err);
+            res.end(err);
+        }
+        else{  
+            res.render('index', 
+            {title: 'Locker list', 
+            lockerList: LockerList , page: 'lockerlist'
+            }); 
+        }
+    });
+}
+
 
 module.exports.displayLoginPage = (req, res, next) => {
     // check if the user is already logged in
