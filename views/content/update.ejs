@@ -9,7 +9,7 @@
                     <input type="text" class="form-control"
                     id="nameTextField"
                     placeholder="Enter the Name"
-                    name="name" value="" required>
+                    name="name" value="<%= locker.name %>" required>
                 </div>
 
                 <div class="form-group">
@@ -17,7 +17,7 @@
                     <input type="text" class="form-control"
                     id="authorTextField"
                     placeholder="Enter the location"
-                    name="location" value="" required>
+                    name="location" value="<%= locker.location %>" required>
                 </div>
 
                 <div class="form-group">
@@ -25,7 +25,7 @@
                     <input type="text" class="form-control"
                     id="publishedTextField"
                     placeholder="Enter the price"
-                    name="price" value="" required>
+                    name="price" value="<%= locker.price %>" required>
                 </div>
 
                 <div class="form-group">
@@ -33,16 +33,15 @@
                     <input type="text" class="form-control"
                     id="descriptionTextArea"
                     placeholder="Enter the size"
-                    name="size" value="" required></textarea>
+                    name="size" value="<%= locker.size %>" required></textarea>
                 </div>
 
-                
                 <div class="form-group">
                     <label for="descriptionTextArea">Address</label>
                     <input type="text" class="form-control"
                     id="descriptionTextArea"
                     placeholder="Enter the address"
-                    name="address" value="" required></textarea>
+                    name="address" value="<%= locker.address %>" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -50,7 +49,7 @@
                     <input type="text" class="form-control"
                     id="descriptionTextArea"
                     placeholder="Enter the image"
-                    name="image" value="" required></textarea>
+                    name="image" value="<%= locker.image %>" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -58,8 +57,9 @@
                     <textarea type="text" class="form-control"
                     id="descriptionTextArea"
                     placeholder="Enter the description"
-                    name="description" value="" required></textarea>
+                    name="description" required><%= locker.description %></textarea>
                 </div>
+                
 
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-edit"></i> Submit</button>

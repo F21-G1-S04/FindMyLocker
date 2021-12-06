@@ -5,7 +5,10 @@ let lockerModel = mongoose.Schema({
     name: String,
     location: String,
     price: Number,
-    size: String
+    size: String,
+    description: String,
+    address: String,
+    image:String
     
 },
 {
