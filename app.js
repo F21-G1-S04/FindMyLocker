@@ -14,6 +14,10 @@ var app = express();
 let session = require('express-session');
 let passport = require('passport');
 
+let passportJWT = require('passport-jwt');
+let JWTStrategy = passportJWT.Strategy;
+let ExtractJWT = passportJWT.ExtractJwt;
+
 let passportLocal = require('passport-local');
 let localStrategy = passportLocal.Strategy;
 let flash = require('connect-flash');
@@ -21,10 +25,15 @@ let flash = require('connect-flash');
 
 
 
+
+
 const bodyParser = require("body-parser");
 const multer = require("multer");
+var fs = require('fs');
+var path = require('path');
+require('dotenv/config');
 
-const fs = require("fs");
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,6 +88,23 @@ passport.use(User.createStrategy());
 // serialize and deserialize the User info
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = DB.Secret;
+
+let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
+  User.findById(jwt_payload.id)
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(err => {
+      return done(err, false);
+    });
+});
+
+passport.use(strategy);
+
 
 app.use('/', indexRouter);
 app.use('/locker', lockerRouter);

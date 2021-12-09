@@ -9,29 +9,41 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+require('dotenv/config');
+var imgModel = require('../model/image');
 
 
 
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set("view engine", "ejs");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "../uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
+
+
+
+  
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
 });
+  
+var upload = multer({ storage: storage });
 
-const upload = multer({ storage: storage });
-
+module.exports.displayImage = (req, res, next) => {
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('index', { items: items, page: 'imagesPage' , title: 'image'});
+        }
+    });
+}
 
 
 module.exports.displayLockerList = (req, res, next) => {
@@ -45,7 +57,8 @@ module.exports.displayLockerList = (req, res, next) => {
 
             res.render('index', 
             {title: 'Locker list', 
-            lockerList: LockerList , page: 'lockerlist'
+            lockerList: LockerList , page: 'lockerlist',
+            displayName: req.user ? req.user.displayName : ''
             });      
         }
     });
@@ -53,7 +66,8 @@ module.exports.displayLockerList = (req, res, next) => {
 
 
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('index', {title: 'Create a Locker Location', page: 'add' 
+    res.render('index', {title: 'Create a Locker Location', page: 'add',
+    displayName: req.user ? req.user.displayName : '' 
     })          
 }
 
@@ -92,39 +106,38 @@ module.exports.displayDetailsPage = (req, res) => {
 			res.status(500).send('An error occurred', err);
 		}
 		else {
-            res.render('index', {title: 'Create a Locker Location', page: 'detailsPage', images: images 
+            res.render('index', {title: 'Create a Locker Location', page: 'detailsPage', images: images ,
+            displayName: req.user ? req.user.displayName : ''
     })
 			
 		}
 	});
 }
 
-const imageSchema = new mongoose.Schema({
-    image: {
-        data: Buffer,
-        contentType: String
-    }
-});
 
-const ImageModel = mongoose.model("Image", imageSchema);
 // Step 8 - the POST handler for processing the uploaded file
 
-module.exports.processDetailsPage = upload.single('myImage'), (req, res, next) => {
-
-	const obj = {
+module.exports.processDetailsPage = upload.single('image'), (req, res, next) => {
+  
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
         img: {
-            data: fs.readFileSync(req.file.filename),
-            contentType: "image/png"
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
         }
     }
-    const newImage = new ImageModel({
-        image: obj.img
-    });
-
-    newImage.save((err) => {
-        err ? console.log(err) : res.redirect("/locker/details");
+    imgModel.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/image');
+        }
     });
 }
+
 
 module.exports.Delete = (req, res, next) => {
     let id = req.params.id;
@@ -153,7 +166,8 @@ module.exports.displayUpdatePage = (req, res, next) => {
         }
         else
         {
-            res.render('index', {title: 'Edit Locker', locker: lockerToEdit, page: 'update'
+            res.render('index', {title: 'Edit Locker', locker: lockerToEdit, page: 'update',
+            displayName: req.user ? req.user.displayName : ''
             })
         }
     });
@@ -198,7 +212,8 @@ module.exports.displayDPage = (req, res, next) => {
         }
         else
         {
-            res.render('index', {title: 'Edit Locker', locker: lockerToEdit, page: 'detailsPage'
+            res.render('index', {title: 'Edit Locker', locker: lockerToEdit, page: 'detailsPage',
+            displayName: req.user ? req.user.displayName : ''
             })
         }
     });

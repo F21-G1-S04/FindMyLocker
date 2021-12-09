@@ -5,10 +5,13 @@ let passport = require('passport');
 let Locker = require('../model/locker');
 let userModel = require('../model/user');
 let User = userModel.User; 
+let jwt = require('jsonwebtoken');
+let DB = require('../db');
+const { Console } = require('console');
 
 
 module.exports.displayHomePage = function(req, res, next) {
-    res.render('index', { title: 'Home',page: 'home' });
+    res.render('index', { title: 'Home',page: 'home', displayName: req.user ? req.user.displayName : '' });
 }
 
 module.exports.displaySearchPage = (req, res, next) => {
@@ -24,7 +27,7 @@ module.exports.displaySearchPage = (req, res, next) => {
         {     
             res.render('index', 
             {title: 'Locker list', 
-            lockerList: LockerList , page: 'lockerlist'
+            lockerList: LockerList , page: 'lockerlist', displayName: req.user ? req.user.displayName : ''
             }); 
         }
     });
@@ -33,7 +36,7 @@ module.exports.displaySearchPage = (req, res, next) => {
 //Advanced Search
 module.exports.displayAdvancedSearch = (req, res, next) => {
 
-    res.render('index', { title: 'Advanced Search',page: 'advancedSearch' });
+    res.render('index', { title: 'Advanced Search',page: 'advancedSearch', displayName: req.user ? req.user.displayName : '' });
 
 }
 
@@ -41,7 +44,7 @@ module.exports.displayAdvancedSearchResult = (req, res, next) => {
     let searchOption = {
     "name":{ $regex : new RegExp(req.body.name, "i") },
     "location": { $regex : new RegExp(req.body.location, "i") },
-    // "price" : { $regex : new RegExp(req.body.price) },
+    //"price" : req.body.price ,
     "size" : { $regex : new RegExp(req.body.size, "i") }
     };
     Locker.find(searchOption, (err, LockerList) => {
@@ -52,7 +55,7 @@ module.exports.displayAdvancedSearchResult = (req, res, next) => {
         else{  
             res.render('index', 
             {title: 'Locker list', 
-            lockerList: LockerList , page: 'lockerlist'
+            lockerList: LockerList , page: 'lockerlist', displayName: req.user ? req.user.displayName : ''
             }); 
         }
     });
@@ -61,6 +64,7 @@ module.exports.displayAdvancedSearchResult = (req, res, next) => {
 
 module.exports.displayLoginPage = (req, res, next) => {
     // check if the user is already logged in
+    
     if(!req.user)
     {
         res.render('index', 
@@ -77,7 +81,13 @@ module.exports.displayLoginPage = (req, res, next) => {
     }
 }
 
+module.exports.logout = (req, res, next) => {
+    req.logout();
+    res.redirect('/');
+}
+
 module.exports.processLoginPage = (req, res, next) => {
+    console.log(req.body.username);
     passport.authenticate('local',
     (err, user, info) => {
         // server err?
@@ -97,6 +107,17 @@ module.exports.processLoginPage = (req, res, next) => {
             {
                 return next(err);
             }
+            const payload = 
+            {
+                id: user._id,
+                displayName: user.displayName,
+                username: user.username,
+                email: user.email
+            }
+
+            const authToken = jwt.sign(payload, DB.Secret, {
+                expiresIn: 604800 // 1 week
+            });
             return res.redirect('/locker');
 
         });
@@ -116,6 +137,7 @@ module.exports.processRegisterPage = (req, res, next) => {
         if(err)
         {
             console.log("Error: Inserting New User");
+            console.log(err);
             if(err.name == "UserExistsError")
             {
                 req.flash(
