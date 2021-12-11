@@ -31,7 +31,7 @@ router.post('/update/:id', requireAuth,  lockerController.processUpdatePage);
 
 router.get('/update/:id', requireAuth, lockerController.displayUpdatePage);
 
-router.get('/details/:id', requireAuth, lockerController.displayDPage);
+router.get('/details/:id',  lockerController.displayDPage);
 
 router.get('/delete/:id', requireAuth, lockerController.Delete);
 

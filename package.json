@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -29,6 +30,7 @@
     "passport-local-mongoose": "^6.1.0"
   },
   "devDependencies": {
-    "@types/mongoose": "^5.11.97"
+    "@types/mongoose": "^5.11.97",
+    "jest": "^27.4.3"
   }
 }
