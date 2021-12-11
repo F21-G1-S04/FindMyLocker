@@ -1,38 +1,44 @@
-<div class="container center">
+<div class="container">
  
 
-        <div class="row">
+        <div class=" m-4">
             <div class="offset-md-4 col-md-4">
-                <h1>Advanced Search for Locker</h1>
+            <div>
+                <h2 class= "h2 center">Advanced Search for Locker</h2>
+            </div>
+
                 <form method="POST" autocomplete="off">
-                    <fieldset class= "form-group">
-                        <label for="name">Name</label>
+                   
+
+                    <div class="row1 form-group" >
+                        <label class = "h5 m-2 font-weight-bold" for="name">Name</label>
                         <input type="text" class="form-control"
                         name="name" placeholder=""
                         id="name" autofocus>
+                    </div>
 
-                        <label for="location">Location</label>
-                        <input type="text" class="form-control"
+                    <div class="row1 form-group" >
+                        <label class = "h5 m-2 font-weight-bold" for="location">Location</label>
+                        <input type="text" class="form-control center"
                         name="location" placeholder=""
                         id="location" autofocus>
+                    </div>
 
                         <!-- <label for="price">Search</label>
                         <input type="number" class="form-control"
                         name="price" placeholder=""
                         id="price" required autofocus> -->
 
-                        <label for="size">Size</label>
+                    <div class="row1 form-group" >
+                        <label class = "h5 m-2 font-weight-bold" for="size">Size</label>
                         <input type="text" class="form-control"
                         name="size" placeholder=""
                         id="size" autofocus>
-                    </fieldset>
-    
-                    
-    
-                    <fieldset class= "form-group text-right">
-                        <input type="submit" class="btn btn-success" value="Search Locker">
-                        
-                    </fieldset>
+                    </div>
+                   
+                    <div class="row m-2 center">
+                        <button class="m-3 btn btn-primary btn-lg btn-block " type="submit">Search Locker</button>
+                    </div>
     
                 </form>
             </div> 
@@ -41,18 +47,28 @@
 
     
 
-    <div class="row1">
-        <figure  class="figure">
-            <img  height="295"width="400" src="images/locker1.png" class="figure-img img-fluid rounded" alt="locker">
-            <figcaption class="figure-caption">Jameson lockers, Toronto</figcaption>
-        </figure>
-        <figure class="figure">
-            <img  height="295"width="400" src="images/locker2.jpg" class=" img-fluid rounded" alt="locker">
-            <figcaption class="figure-caption">Lagos lockers, Brampton</figcaption>
-        </figure>
-        <figure class="figure">
-            <img  height="295"width="400" src="images/locker3.jpg" class="figure-img img-fluid rounded" alt="locker">
-            <figcaption class="figure-caption">Delta lockers, Brampton</figcaption>
-        </figure>
-    </div>
+        <div class="container m-2 center">
+        
+            <span class="m-2" >
+                <figure  class="figure m-2">
+                    <img  width="350" src="images/locker1.jpg" class="img-fluid rounded" alt="locker">
+                    <figcaption class="h5 m-3">Jameson lockers, Toronto</figcaption>
+                </figure>
+            </span>
+    
+            <span class="m-2 " >
+                <figure class="figure m-2">
+                    <img  width="350" src="images/locker2.jpg" class=" img-fluid rounded" alt="locker">
+                    <figcaption class="h5 m-3">Lagos lockers, Brampton</figcaption>
+                </figure>
+            </span>
+    
+            <span class="m-2" >
+                <figure class="figure m-2">
+                    <img  width="350" src="images/locker3.jpg" class="img-fluid rounded" alt="locker">
+                    <figcaption class="h5 m-3">Delta lockers, Brampton</figcaption>
+                </figure>
+            </span>
+    
+        </div>
 </div>

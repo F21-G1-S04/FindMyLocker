@@ -1,45 +1,50 @@
-<div class="container center">
+<div class="container ">
  
-
-        <div class="row">
+        <div class="row m-4">
             <div class="offset-md-4 col-md-4">
-                <h1>Search for Locker</h1>
+                <h1 class="h1 center ">Search for Locker</h1>
                 <form method="POST" autocomplete="off">
-                    <fieldset class= "form-group">
-                        <label for="Locker Location">Search</label>
-                        <input type="text" class="form-control"
-                        name="search" placeholder="Enter Locker Location"
-                        id="Locker Location" required autofocus>
-    
-                        <a href="/advancedSearch">Advance Search</a>
-                    </fieldset>
-    
                     
-    
-                    <fieldset class= "form-group text-right">
-                        <input type="submit" class="btn btn-success" value="Search Locker">
-                        
-                    </fieldset>
-    
+                    <div class="row1 form-group" >
+                        <label  class = "h4 m-2 font-weight-bold" for="Locker Location ">Search</label>
+                        <input type="text" class="form-control" name="search" placeholder="Enter Locker Location" id="Locker Location" required autofocus>
+                    </div>
+
+
+
+                    <div class = "h5 m-2 font-weight-bold">
+                    <a href="/advancedSearch">Advance Search</a>
+                    </div>
+
+                <div class="row m-3 center"> 
+                    <button class="m-3 btn btn-primary btn-lg btn-block center" type="submit">Search Locker</button>
+                </div>  
                 </form>
             </div> 
         </div>
     
+    <div class="container m-2 center">
+        
+        <span class="m-2" >
+            <figure  class="figure m-2">
+                <img  width="350" src="images/locker1.jpg" class="img-fluid rounded" alt="locker">
+                <figcaption class="h5 m-3">Jameson lockers, Toronto</figcaption>
+            </figure>
+        </span>
 
-    
+        <span class="m-2 " >
+            <figure class="figure m-2">
+                <img  width="350" src="images/locker2.jpg" class=" img-fluid rounded" alt="locker">
+                <figcaption class="h5 m-3">Lagos lockers, Brampton</figcaption>
+            </figure>
+        </span>
 
-    <div class="row1">
-        <figure  class="figure">
-            <img  height="295"width="400" src="images/locker1.png" class="figure-img img-fluid rounded" alt="locker">
-            <figcaption class="figure-caption">Jameson lockers, Toronto</figcaption>
-        </figure>
-        <figure class="figure">
-            <img  height="295"width="400" src="images/locker2.jpg" class=" img-fluid rounded" alt="locker">
-            <figcaption class="figure-caption">Lagos lockers, Brampton</figcaption>
-        </figure>
-        <figure class="figure">
-            <img  height="295"width="400" src="images/locker3.jpg" class="figure-img img-fluid rounded" alt="locker">
-            <figcaption class="figure-caption">Delta lockers, Brampton</figcaption>
-        </figure>
+        <span class="m-2" >
+            <figure class="figure m-2">
+                <img  width="350" src="images/locker3.jpg" class="img-fluid rounded" alt="locker">
+                <figcaption class="h5 m-3">Delta lockers, Brampton</figcaption>
+            </figure>
+        </span>
+
     </div>
 </div>
