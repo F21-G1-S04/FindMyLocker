@@ -30,8 +30,6 @@
     "passport-local-mongoose": "^6.1.0"
   },
   "devDependencies": {
-    "@types/mongoose": "^5.11.97",
-    "jest": "^27.4.3",
-    "supertest": "^6.1.6"
+    "@types/mongoose": "^5.11.97"
   }
 }
