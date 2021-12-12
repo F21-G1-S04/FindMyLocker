@@ -1,20 +1,30 @@
 <div class="container" id="ab" >
-    <h1><%= locker.name %></h1>
-    <div>
-      
-      <figure  class="figure">
-        <img  height="295"width="400" src="images/<%= locker.image %>" class="figure-img img-fluid rounded" alt="locker">
-        <figcaption class="figure-caption">Jameson lockers, Toronto</figcaption>
-    </figure>
-    </div>
-    
-    <h1>Uploaded Images</h1>
 
-    <div id="float">
-      <h3><%= locker.address %></h3>
-      <h3><%= locker.price %></h3>
-      <h3><%= locker.size %></h3>
-      <h3><%= locker.description %></h3>
+  <div class="row m-4">
+        <h1><%= locker.name %></h1>
+      </div>
+
+      <div class="container row m-2">
+        <div class="container row m-2">
+        
+        <span class="m-2 col-4" >
+            <figure  class="figure m-2">
+                <img  width="350" src="/images/locker1.jpg" class="img-fluid rounded" alt="locker">
+                <figcaption class="h5 m-3">Jameson lockers, Toronto</figcaption>
+            </figure>
+        </span>
+
+        <span class="m-2 col-6 " >
+          <figure  class="figure m-2">
+          <h4 class="h4">Address : <%= locker.address %></h4>
+          <h4 class="h4"> Price : <%= locker.price %> $CAD</h4>
+          <h4 class="h4"> Size :  <%= locker.size %></h4>
+          <h4 class="h4"> Description : <%= locker.description %></h4>
+        </figure>
+        </span>
+      </div>
+        
 
     </div>
+
   </div>
