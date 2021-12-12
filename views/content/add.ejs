@@ -3,7 +3,7 @@
         <div class="offset-md-3 col-md-6">
             <h1><%= title %></h1>
 
-            <form class="form" method="POST">
+            <form class="form" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nameTextField">Name</label>
                     <input type="text" class="form-control"
@@ -47,10 +47,8 @@
 
                 <div class="form-group">
                     <label for="descriptionTextArea">Image</label>
-                    <input type="text" class="form-control"
-                    id="descriptionTextArea"
-                    placeholder="Enter the image"
-                    name="image" value="" required></textarea>
+                    <input type="file" name="myImage" accept="image/*" id="file-input">
+                </textarea>
                 </div>
 
                 <div class="form-group">

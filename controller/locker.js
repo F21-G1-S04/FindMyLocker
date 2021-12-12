@@ -23,15 +23,15 @@ const app = express();
 
   
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads')
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
     },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now())
     }
-});
+  })
   
-var upload = multer({ storage: storage });
+  var upload = multer({ storage: storage })
 
 module.exports.displayImage = (req, res, next) => {
     imgModel.find({}, (err, items) => {
@@ -72,16 +72,26 @@ module.exports.displayAddPage = (req, res, next) => {
 }
 
 module.exports.processAddPage =  (req, res, next) => {
-    let newLocker = Locker({
-        "name": req.body.name,
-        "location": req.body.location,
-        "price": req.body.price,
-        "size": req.body.size,
-        "description": req.body.description,
-        "address": req.body.address,
-        "image":req.body.image
+    const file = req.file
+    if (!file) {
+      const error = new Error('Please upload a file')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+
+    let newLocker = {
+        name: req.body.name,
+        location: req.body.location,
+        price: req.body.price,
+        size: req.body.size,
+        description: req.body.description,
+        address: req.body.address,
+        // "size": req.body.size,
+        // "description": req.body.description,
+        // "address": req.body.address,
+        img:file.filename,
         
-    });
+    }
 
     Locker.create(newLocker, (err, Locker) =>{
         if(err)

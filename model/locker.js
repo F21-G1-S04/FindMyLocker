@@ -9,10 +9,7 @@ let lockerModel = mongoose.Schema({
     description: String,
     address: String,
     img:
-    {
-        data: Buffer,
-        contentType: String
-    }
+    String
     
 },
 {

@@ -3,6 +3,11 @@ var router = express.Router();
 
 let lockerController = require('../controller/locker');
 
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+
 function requireAuth(req, res, next)
 {
     // check if the user is logged in
@@ -14,6 +19,22 @@ function requireAuth(req, res, next)
 }
 
 
+  
+
+  
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+  
+var upload = multer({ storage: storage });
+
+
+
 /* GET locker list. */
 router.get('/', requireAuth, lockerController.displayLockerList);
 
@@ -21,7 +42,7 @@ router.get('/', requireAuth, lockerController.displayLockerList);
 router.get('/add', requireAuth, lockerController.displayAddPage);
 
 /* Process add page */
-router.post('/add', requireAuth, lockerController.processAddPage);
+router.post('/add', requireAuth, upload.single('myImage'), lockerController.processAddPage);
 
 router.get('/image',  lockerController.displayImage);
 

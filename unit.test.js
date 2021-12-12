@@ -1,6 +1,14 @@
 let lockerController = require('./controller/locker');
 
-test('', () => {
-    expect(sum(1, 2)).toBe(3);
-  
-});
+const request = require("supertest");
+const express = require("express");
+const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use("/locker", lockerController);
+
+test("index route works", done => {
+    request(app)
+      .get("/locker")
+      .expect(200, done);
+  });
