@@ -16,7 +16,6 @@ router.post('/register',  indexController.processRegisterPage);
 
 router.get('/logout', indexController.logout);
 
-//router.post('/uploadphoto',  indexController.processDetailsPage);
 
 /* Process search page */
 router.post('/',  indexController.displaySearchPage);
