@@ -6,7 +6,7 @@ let lockerController = require('../controller/locker');
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
+
 
 function requireAuth(req, res, next)
 {
@@ -44,15 +44,13 @@ router.get('/add', requireAuth, lockerController.displayAddPage);
 /* Process add page */
 router.post('/add', requireAuth, upload.single('myImage'), lockerController.processAddPage);
 
-router.get('/image',  lockerController.displayImage);
 
-router.post('/image',  lockerController.processDetailsPage);
 
-router.post('/update/:id', requireAuth,  lockerController.processUpdatePage);
+router.post('/update/:id', requireAuth, upload.single('myImage'), lockerController.processUpdatePage);
 
 router.get('/update/:id', requireAuth, lockerController.displayUpdatePage);
 
-router.get('/details/:id',  lockerController.displayDPage);
+router.get('/details/:id',  lockerController.displayDetailsPage);
 
 router.get('/delete/:id', requireAuth, lockerController.Delete);
 

@@ -5,47 +5,6 @@ let Locker = require('../model/locker');
 
 
 
-const bodyParser = require("body-parser");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-require('dotenv/config');
-var imgModel = require('../model/image');
-
-
-
-
-const app = express();
-
-
-
-
-
-  
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
-    }
-  })
-  
-  var upload = multer({ storage: storage })
-
-module.exports.displayImage = (req, res, next) => {
-    imgModel.find({}, (err, items) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.render('index', { items: items, page: 'imagesPage' , title: 'image'});
-        }
-    });
-}
-
-
 module.exports.displayLockerList = (req, res, next) => {
     Locker.find((err, LockerList) => {
         if(err)
@@ -86,9 +45,6 @@ module.exports.processAddPage =  (req, res, next) => {
         size: req.body.size,
         description: req.body.description,
         address: req.body.address,
-        // "size": req.body.size,
-        // "description": req.body.description,
-        // "address": req.body.address,
         img:file.filename,
         
     }
@@ -107,46 +63,10 @@ module.exports.processAddPage =  (req, res, next) => {
 
 }
 
-// Step 7 - the GET request handler that provides the HTML UI
-
-module.exports.displayDetailsPage = (req, res) => {
-	ImageModel.find({}, (err, images) => {
-		if (err) {
-			console.log(err);
-			res.status(500).send('An error occurred', err);
-		}
-		else {
-            res.render('index', {title: 'Create a Locker Location', page: 'detailsPage', images: images ,
-            displayName: req.user ? req.user.displayName : ''
-    })
-			
-		}
-	});
-}
 
 
-// Step 8 - the POST handler for processing the uploaded file
 
-module.exports.processDetailsPage = upload.single('image'), (req, res, next) => {
-  
-    var obj = {
-        name: req.body.name,
-        desc: req.body.desc,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
-    imgModel.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
-            res.redirect('/image');
-        }
-    });
-}
+
 
 
 module.exports.Delete = (req, res, next) => {
@@ -187,16 +107,19 @@ module.exports.displayUpdatePage = (req, res, next) => {
 module.exports.processUpdatePage = (req, res, next) => {
     let id = req.params.id
 
-    let updatedLocker = Locker({
-        "_id": id,
-        "name": req.body.name,
-        "location": req.body.location,
-        "price": req.body.price,
-        "size": req.body.size,
-        "description": req.body.description,
-        "address": req.body.address,
-        "image": req.body.image
-    });
+    const file = req.file
+    
+
+    let updatedLocker = {
+        _id: id,
+        name: req.body.name,
+        location: req.body.location,
+        price: req.body.price,
+        size: req.body.size,
+        description: req.body.description,
+        address: req.body.address,
+        
+    }
 
     Locker.updateOne({_id: id}, updatedLocker, (err) => {
         if(err)
@@ -211,7 +134,7 @@ module.exports.processUpdatePage = (req, res, next) => {
     });
 }
 
-module.exports.displayDPage = (req, res, next) => {
+module.exports.displayDetailsPage = (req, res, next) => {
     let id = req.params.id;
 
     Locker.findById(id, (err, lockerToEdit) => {

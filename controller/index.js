@@ -44,7 +44,6 @@ module.exports.displayAdvancedSearchResult = (req, res, next) => {
     let searchOption = {
     "name":{ $regex : new RegExp(req.body.name, "i") },
     "location": { $regex : new RegExp(req.body.location, "i") },
-    //"price" : req.body.price ,
     "size" : { $regex : new RegExp(req.body.size, "i") }
     };
     Locker.find(searchOption, (err, LockerList) => {
@@ -98,7 +97,7 @@ module.exports.processLoginPage = (req, res, next) => {
         // is there a user login error?
         if(!user)
         {
-            req.flash('loginMessage', 'Authentication Error');
+            req.flash('loginMessage', 'Username/password is invalid');
             return res.redirect('/login');
         }
         req.login(user, (err) => {
@@ -114,9 +113,9 @@ module.exports.processLoginPage = (req, res, next) => {
                 username: user.username,
                 email: user.email
             }
-
+            let duration = 604800;
             const authToken = jwt.sign(payload, DB.Secret, {
-                expiresIn: 604800 // 1 week
+                expiresIn: duration // 1 week
             });
             return res.redirect('/locker');
 
@@ -125,10 +124,8 @@ module.exports.processLoginPage = (req, res, next) => {
 }
 
 module.exports.processRegisterPage = (req, res, next) => {
-    // instantiate a user object
     let newUser = new User({
         username: req.body.username,
-        //password: '999'
         email: req.body.email,
         displayName: req.body.displayName
     });
